@@ -46,6 +46,13 @@ class PreviewConfirmationForm(forms.Form):
 
 
 class TaskForm(forms.ModelForm):
+    admin_time = forms.CharField(
+                help_text=_('Enter If more than 60 minutes.'),
+                required=False,
+                widget=forms.TextInput(attrs={'class': 'fill-width'}))
+    execution_time = forms.IntegerField(
+		widget=forms.Select(choices=[(0,'---')]+[(i, i) for i in (15, 30, 45, 60)]),
+		required=False)
     keywords = (forms.CharField(
                 help_text=_('Please use commas to separate your keywords.'),
                 required=False,
@@ -73,6 +80,15 @@ class TaskForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(TaskForm, self).clean()
+	execution_time = cleaned_data.get('execution_time');
+	admin_time = cleaned_data.get('admin_time')
+	if admin_time:
+	    if int(admin_time) < 60:
+		raise forms.ValidationError(_("Value entered is less than 60"))
+	    else:
+		cleaned_data['execution_time'] = admin_time
+	if (not execution_time) and (not admin_time):
+	   raise forms.ValidationError(_("Execution Time is required."))
         start_date = cleaned_data.get('start_date')
         end_date = cleaned_data.get('end_date')
         if start_date and end_date:
