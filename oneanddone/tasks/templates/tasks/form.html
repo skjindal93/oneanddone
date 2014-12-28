@@ -61,6 +61,7 @@
     </fieldset>
     <fieldset class="task-info">
       {{ form_field(task_form['execution_time']) }}
+      {{ form_field(task_form['admin_time'], help_text=True) }}
       {{ form_field(task_form['difficulty']) }}
       {{ form_field(task_form['priority']) }}
     </fieldset>
@@ -105,4 +106,20 @@
     </div>
   </form>
 </main>
+<script>
+    var execution_time = document.getElementById("id_execution_time");
+    var admin_time_parent_node = document.getElementById("id_admin_time").parentNode;
+    function display_admin_time(select){
+	if (select.value == 0){
+	    admin_time_parent_node.style.display = 'block';
+	}
+	else {
+	    admin_time_parent_node.style.display = 'none';
+	}
+    }
+    display_admin_time(execution_time);
+    document.getElementById("id_execution_time").onchange = function(){
+	display_admin_time(this);
+    }
+</script>
 {% endblock %}

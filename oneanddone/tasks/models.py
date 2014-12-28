@@ -350,7 +350,6 @@ class Task(CachedModel, CreatedModifiedModel, CreatedByModel):
         verbose_name='task difficulty')
     end_date = models.DateTimeField(blank=True, null=True)
     execution_time = models.IntegerField(
-        choices=((i, i) for i in (15, 30, 45, 60)),
         blank=False,
         default=30,
         verbose_name='estimated time'
