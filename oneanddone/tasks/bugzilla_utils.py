@@ -32,7 +32,7 @@ class BugzillaUtils(object):
         return data
 
     def request_bug(self, bug_id, fields=None):
-        """ Returns bug with id `bug_id` from Buzgilla@Mozilla, if any """
+        """ Returns bug with id `bug_id` from Bugzilla@Mozilla, if any """
         params = {}
         if fields:
             params['include_fields'] = ','.join(fields)
