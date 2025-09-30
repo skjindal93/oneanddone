@@ -24,7 +24,7 @@ from oneanddone.tasks.bugzilla_utils import BugzillaUtils
 
 
 class BugzillaBug(models.Model):
-    bugzilla_id = models.IntegerField(max_length=20, unique=True)
+    bugzilla_id = models.IntegerField(unique=True)
     summary = models.CharField(max_length=255)
     tasks = generic.GenericRelation('Task')
 
